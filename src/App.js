@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useState } from 'react';
+import { Counter } from './Counter';
+// import { Listener } from './Listener';gaa
+import { TransitProvider } from './TransitContext';
 
-function App() {
+const App = () => {
+  const [name, setName] = useState('a');
+  const onChangeName = useCallback((e) => setName(e.target.value), []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TransitProvider>
+      {/* <Listener /> */}
+      <select value={name} onChange={onChangeName}>
+        <option value="a">a</option>
+        <option value="c">c</option>
+      </select>
+      <Counter key={name} name={name} queryName={name} />
+      <Counter name="b" queryName="b" />
+    </TransitProvider>
   );
 }
+
 
 export default App;
